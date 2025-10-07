@@ -1,0 +1,5 @@
+- [x] Add edit_post view in views.py
+- [x] Add delete_post view in views.py
+- [x] Add URLs for edit_post and delete_post in urls.py
+- [x] Create edit_post.html template
+- [x] Test the functionality
