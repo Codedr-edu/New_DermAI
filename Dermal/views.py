@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 import base64
 import re
+import httpx
 import json
+from .fastapi import fast_api
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
 from django.contrib.auth import authenticate, login
 from .models import *
-from .AI_detection import predict_skin_with_explanation
+# from .AI_detection import predict_skin_with_explanation
+# from .gardio import gardio
 import os
 import requests
 import markdown2
@@ -16,6 +19,7 @@ import bleach
 from django.views.decorators.http import require_http_methods, require_POST
 from django.core.files.storage import default_storage
 from django.urls import reverse
+from gradio_client import Client
 # Create your views here.
 # def user
 
@@ -23,6 +27,7 @@ from django.urls import reverse
 @csrf_exempt
 @login_required
 def upload_file(request):
+    # client = Client("https://codedr-skin-detection.hf.space", timeout=300)
     if request.method == "POST":
         try:
             uploaded_file = request.FILES.get("image")
@@ -35,15 +40,27 @@ def upload_file(request):
             image_file = ContentFile(img_bytes, name=file_name)
 
             # Gọi model dự đoán với giải thích heatmap
-            results, heatmap_base64 = predict_skin_with_explanation(img_bytes)
+            # results, heatmap_base64 = predict_skin_with_explanation(img_bytes)
+            # output = client.predict(img_bytes, api_name="/predict_with_gradcam")
+            img_b64 = base64.b64encode(img_bytes).decode("utf-8")
+            output = fast_api(img_b64)
+
+            heat_img_bytes = base64.b64decode(output['heatmap_base64'])
+            heatmap_file = ContentFile(
+                heat_img_bytes, name="heatmap_"+file_name)
 
             # Lưu vào DB
             skin_img = Dermal_image.objects.create(
                 image=image_file,
-                result=results,
-                heatmap=heatmap_base64,
+                result=output['results'],
+                heatmap=heatmap_file,
                 user=Profile.objects.get(user=request.user)
             )
+            """
+            skin_img.image.save("skin_image.jpg", image_file)
+            skin_img.heatmap.save("heatmap_"+file_name, heatmap_file)
+            skin_img.save()
+            """
 
             return redirect('result', image_id=skin_img.id)
 
@@ -56,6 +73,7 @@ def upload_file(request):
 @csrf_exempt
 @login_required
 def upload_image(request):
+    # client = Client("https://codedr-skin-detection.hf.space")
     if request.method == "POST":
         try:
             # Check for file upload (from modal)
@@ -79,15 +97,27 @@ def upload_image(request):
             image_file = ContentFile(img_bytes, name=file_name)
 
             # Gọi model dự đoán với giải thích heatmap
-            results, heatmap_base64 = predict_skin_with_explanation(img_bytes)
+            # results, heatmap_base64 = predict_skin_with_explanation(img_bytes)
+            image_b64 = base64.b64encode(img_bytes).decode("utf-8")
+            # output = client.predict(image_b64, api_name="/predict_with_gradcam")
+            output = fast_api(image_b64)
+
+            heat_img_bytes = base64.b64decode(output['heatmap_base64'])
+            heatmap_file = ContentFile(
+                heat_img_bytes, name="heatmap_"+file_name)
 
             # Lưu vào DB
             skin_img = Dermal_image.objects.create(
                 image=image_file,
-                result=results,
-                heatmap=heatmap_base64,
+                result=output['results'],
+                heatmap=heatmap_file,
                 user=Profile.objects.get(user=request.user)
             )
+            """
+            skin_img.image.save("skin_image.jpg", image_file)
+            skin_img.heatmap.save("heatmap_"+file_name, heatmap_file)
+            skin_img.save()
+            """
 
             return redirect('result', image_id=skin_img.id)
 

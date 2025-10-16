@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 load_dotenv()
 
@@ -32,6 +36,12 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
+)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,10 +50,40 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'Dermal',
-    'tinymce'
+    'tinymce',
+    'cloudinary',
+    'cloudinary_storage',
+    'django.contrib.staticfiles',
 ]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STORAGES = {
+    'default': {
+        # or any media storage you'd like to use.
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    },
+    'staticfiles': {                                                 # this is the storage for static files
+        # this is django's default storage for static files, for using cloudinry as static files storage see usage with static files section
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'
+    },
+}
+
+# MEDIA_URL = '/media/'
+
+# MEDIA_URL = f"https://res.cloudinary.com/{os.getenv('CLOUDINARY_CLOUD_NAME')}/"
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,12 +117,21 @@ WSGI_APPLICATION = 'dermai.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / str(os.getenv("DB_NAME")),
     }
+}
+"""
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),  # set ở PythonAnywhere
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
@@ -123,11 +172,6 @@ LOGIN_URL = '/login/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

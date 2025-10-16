@@ -53,7 +53,7 @@
 
             <h5 class="mb-3">Heatmap giải thích</h5>
             <p class="text-muted small">Heatmap hiển thị các vùng ảnh mà AI tập trung để đưa ra dự đoán. Dữ liệu này có thể tham khảo bởi những người có chuyên môn y khoa</p>
-            <img src="data:image/png;base64,{{ skin_image.heatmap }}" alt="Grad-CAM Heatmap" class="heatmap-img">
+            <img src="{{ skin_image.heatmap.url }}" alt="Grad-CAM Heatmap" class="heatmap-img">
             {% endif %}
 
             <div class="w-100 rounded" style="background-color:gray;height:3px; margin-top:20px;margin-bottom:30px;"></div>

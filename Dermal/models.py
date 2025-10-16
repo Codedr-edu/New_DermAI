@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
+from cloudinary.models import CloudinaryField
+# from cloudinary_storage.storage import
 
 # Create your models here.
 
@@ -10,6 +12,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     title = models.CharField(max_length=100, blank=True)
     location = models.CharField(max_length=100, blank=True)
+    # avatar = CloudinaryField('image', blank=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
 
@@ -18,14 +21,17 @@ class Profile(models.Model):
 
 
 class Dermal_image(models.Model):
-    image = models.ImageField(upload_to='images/')
+    # image = CloudinaryField('image', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='dermal_images/', blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     result = models.JSONField(blank=True, null=True)
     drug_history = models.TextField(blank=True, null=True)
     illness_history = models.TextField(blank=True, null=True)
     age = models.IntegerField(blank=True, null=True)
-    heatmap = models.TextField(blank=True, null=True)
+    # heatmap = CloudinaryField('image', blank=True, null=True)
+    heatmap = models.ImageField(upload_to='heatmaps/', blank=True, null=True)
     more_predict = models.TextField(blank=True, null=True)
     symptom = models.TextField(blank=True, null=True)
     gender = models.TextField(blank=True, null=True)
