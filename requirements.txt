@@ -28,4 +28,4 @@ bcrypt
 
 # Static files and production server
 whitenoise
-gunicorn
+gunicorn==21.2.0
