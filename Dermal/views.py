@@ -23,6 +23,9 @@ from gradio_client import Client
 # Create your views here.
 # def user
 
+@require_http_methods(["GET", "HEAD"])
+def health(request):
+    return JsonResponse({"status": "ok"})
 
 @csrf_exempt
 @login_required
