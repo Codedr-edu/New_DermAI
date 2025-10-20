@@ -215,9 +215,10 @@ def call_gemini(prompt, user=None):
         # Prefer the official Google Generative AI Python client when available.
         try:
             from google import genai  # type: ignore
-            print(2)
         except Exception:
             genai = None
+
+        print(genai)
 
         model = os.getenv('GEMINI_MODEL') or os.getenv(
             'GEMINI_DEFAULT_MODEL') or 'gemini-2.5-flash-lite'
