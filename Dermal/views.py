@@ -215,16 +215,19 @@ def call_gemini(prompt, user=None):
         # Prefer the official Google Generative AI Python client when available.
         try:
             from google import genai  # type: ignore
+            print(2)
         except Exception:
             genai = None
 
         model = os.getenv('GEMINI_MODEL') or os.getenv(
             'GEMINI_DEFAULT_MODEL') or 'gemini-2.5-flash-lite'
+        print(model)
 
         if genai is not None and api_key:
             # configure client if possible
             try:
                 client = genai.Client(api_key=api_key)
+                print(1)
                 response = client.models.generate_content(
                     model="gemini-2.5-flash-lite", contents=prompt)
                 print(response.text)
@@ -234,7 +237,6 @@ def call_gemini(prompt, user=None):
                 # If the SDK call fails, we'll try an HTTP fallback below
                 print(e)
                 traceback.print_exc()
-                pass
 
         # If we have an api_url, try a simple HTTP POST (backward compatible)
         """
