@@ -29,3 +29,4 @@ bcrypt
 # Static files and production server
 whitenoise
 gunicorn==21.2.0
+google-generativeai
