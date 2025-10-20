@@ -263,8 +263,8 @@ def call_gemini(prompt, user=None):
 
     except Exception:
         # final fallback (dev-friendly)
-        return fallback
         print(Exception)
+        return fallback
 
 
 def login_view(request):
