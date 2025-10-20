@@ -200,6 +200,8 @@ def call_gemini(prompt, user=None):
     api_url = os.getenv('GEMINI_API_URL')
     api_key = os.getenv('GEMINI_API_KEY')
 
+    print(api_key)
+
     # Basic canned fallback reply (useful for local dev)
     fallback = (
         "Xin chào! Mình hiện đang chạy ở môi trường phát triển nên chưa kết nối được với dịch vụ Gemini.")
@@ -224,6 +226,7 @@ def call_gemini(prompt, user=None):
                 client = genai.Client(api_key=api_key)
                 response = client.models.generate_content(
                     model="gemini-2.5-flash-lite", contents=prompt)
+                print(response.text)
                 return response.text if response and hasattr(response, 'text') else fallback
 
             except Exception:
@@ -261,6 +264,7 @@ def call_gemini(prompt, user=None):
     except Exception:
         # final fallback (dev-friendly)
         return fallback
+        print(Exception)
 
 
 def login_view(request):
