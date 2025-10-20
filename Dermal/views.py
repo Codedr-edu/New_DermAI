@@ -21,6 +21,7 @@ from django.views.decorators.http import require_http_methods, require_POST
 from django.core.files.storage import default_storage
 from django.urls import reverse
 from gradio_client import Client
+from google import genai
 # Create your views here.
 # def user
 
@@ -213,18 +214,20 @@ def call_gemini(prompt, user=None):
 
     try:
         # Prefer the official Google Generative AI Python client when available.
+        """
         try:
             from google import genai  # type: ignore
         except Exception:
             genai = None
 
         print(genai)
+        """
 
         model = os.getenv('GEMINI_MODEL') or os.getenv(
             'GEMINI_DEFAULT_MODEL') or 'gemini-2.5-flash-lite'
         print(model)
 
-        if genai is not None and api_key:
+        if api_key:
             # configure client if possible
             try:
                 client = genai.Client(api_key=api_key)
