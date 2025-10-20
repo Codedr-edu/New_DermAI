@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login
 from .models import *
 # from .AI_detection import predict_skin_with_explanation
 # from .gardio import gardio
+import traceback
 import os
 import requests
 import markdown2
@@ -261,9 +262,10 @@ def call_gemini(prompt, user=None):
 
             return json.dumps(data)
 
-    except Exception:
+    except Exception as e:
         # final fallback (dev-friendly)
-        print(Exception)
+        print(e)
+        traceback.print_exc()
         return fallback
 
 
