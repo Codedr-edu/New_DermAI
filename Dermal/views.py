@@ -237,7 +237,7 @@ def call_gemini(prompt, user=None):
                 pass
 
         # If we have an api_url, try a simple HTTP POST (backward compatible)
-        
+        """
         if api_url:
             headers = {
                 'Authorization': f'Bearer {api_key}',
@@ -264,6 +264,7 @@ def call_gemini(prompt, user=None):
                         return first.get('text') or first.get('message') or json.dumps(first)
 
             return json.dumps(data)
+        """
 
     except Exception as e:
         # final fallback (dev-friendly)
