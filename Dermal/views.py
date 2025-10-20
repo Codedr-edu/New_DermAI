@@ -230,11 +230,14 @@ def call_gemini(prompt, user=None):
                 print(response.text)
                 return response.text if response and hasattr(response, 'text') else fallback
 
-            except Exception:
+            except Exception as e:
                 # If the SDK call fails, we'll try an HTTP fallback below
+                print(e)
+                traceback.print_exc()
                 pass
 
         # If we have an api_url, try a simple HTTP POST (backward compatible)
+        
         if api_url:
             headers = {
                 'Authorization': f'Bearer {api_key}',
