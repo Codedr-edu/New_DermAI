@@ -615,4 +615,4 @@ def predict(request, id):
 
         image.explain = clean_html
         image.save()
-        return redirect('result', id=image.id)
+        return redirect('result', image_id=image.id)
