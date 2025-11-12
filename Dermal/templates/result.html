@@ -222,6 +222,10 @@
                 </tbody>
             </table>
             {% endif %}
+            <br>
+            {% if skin_image.explain %}
+            {{skin_image.explain|safe}}
+            {% endif %}
         </div>
 
         <div class="text-center" style="margin-bottom: 10vh;">
