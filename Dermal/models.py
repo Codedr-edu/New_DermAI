@@ -37,6 +37,13 @@ class Dermal_image(models.Model):
     gender = models.TextField(blank=True, null=True)
     # heatmap = models.TextField(blank=True, null=True)  # base64 string
     explain = models.TextField(blank=True, null=True)
+    
+    # Translations
+    symptom_en = models.TextField(blank=True, null=True)
+    drug_history_en = models.TextField(blank=True, null=True)
+    illness_history_en = models.TextField(blank=True, null=True)
+    explain_en = models.TextField(blank=True, null=True)
+    result_en = models.JSONField(blank=True, null=True)
 
     def __str__(self):
         return f"Image {self.id} uploaded at {self.uploaded_at}"

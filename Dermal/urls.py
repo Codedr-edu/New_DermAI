@@ -20,7 +20,7 @@ urlpatterns = [
     path('pharmacy/', pharmacy, name='pharmacy'),
     path('profile/', your_profile, name='your_profile'),
     path('upload/file/', upload_file, name='upload_file'),
-    # path('edit_profile/', edit_profile, name='edit_profile'),
-    path('predict/<int:id>', predict, name="predict"),
+    #path('edit_profile/', edit_profile, name='edit_profile'),
+    path('predict/<int:id>/', predict, name="predict"),
     path('health/', health, name="health")
 ]

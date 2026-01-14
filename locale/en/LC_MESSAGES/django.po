@@ -1,0 +1,289 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DermAI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-14 12:00+0000\n"
+"PO-Revision-Date: 2024-01-14 12:00+0000\n"
+"Last-Translator: DermAI Team\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+# Login
+msgid "Đăng nhập"
+msgstr "Login"
+
+msgid "Đăng nhập để sử dụng các tính năng"
+msgstr "Log in to access features"
+
+msgid "Tên đăng nhập hoặc Email"
+msgstr "Username or Email"
+
+msgid "Mật khẩu"
+msgstr "Password"
+
+msgid "Chưa có tài khoản? Đăng ký"
+msgstr "Don't have an account? Sign up"
+
+# Signup
+msgid "Đăng ký"
+msgstr "Sign up"
+
+msgid "Đăng ký tài khoản mới"
+msgstr "Register new account"
+
+msgid "Tên đăng nhập"
+msgstr "Username"
+
+msgid "Ảnh đại diện (tùy chọn)"
+msgstr "Avatar (optional)"
+
+msgid "Ngày sinh"
+msgstr "Date of birth"
+
+msgid "Đã có tài khoản? Đăng nhập"
+msgstr "Already have an account? Login"
+
+# Results
+msgid "Kết quả phân tích"
+msgstr "Analysis Results"
+
+msgid "Kết quả phân tích da"
+msgstr "Skin analysis results"
+
+msgid "Ảnh đã tải lên"
+msgstr "Uploaded Image"
+
+msgid "Kết quả chẩn đoán sơ bộ"
+msgstr "Preliminary diagnosis results"
+
+msgid "Tên bệnh"
+msgstr "Disease name"
+
+msgid "Phần trăm dự đoán"
+msgstr "Confidence"
+
+# Chatbot
+msgid "Chatbot"
+msgstr "Chatbot"
+
+msgid "Hỏi bác sĩ ảo powered by Gemini"
+msgstr "Ask virtual doctor powered by Gemini"
+
+msgid "Model:"
+msgstr "Model:"
+
+msgid "Nhập câu hỏi của bạn..."
+msgstr "Type your question..."
+
+msgid "Nhập câu hỏi"
+msgstr "Type question"
+
+msgid "Gửi"
+msgstr "Send"
+
+msgid "Đang gửi..."
+msgstr "Sending..."
+
+# Profile
+msgid "Hồ sơ"
+msgstr "Profile"
+
+msgid "Hồ sơ cá nhân"
+msgstr "Personal Profile"
+
+msgid "Thông tin cá nhân"
+msgstr "Personal Information"
+
+msgid "Tên người dùng"
+msgstr "Username"
+
+msgid "Ngày tham gia"
+msgstr "Date joined"
+
+msgid "Lịch sử phân tích da"
+msgstr "Skin analysis history"
+
+msgid "Kết quả sơ bộ"
+msgstr "Preliminary result"
+
+msgid "Xem chi tiết"
+msgstr "View details"
+
+msgid "Ngày tải lên"
+msgstr "Uploaded at"
+
+msgid "Chưa có lịch sử phân tích."
+msgstr "No analysis history."
+
+msgid "Quay lại trang chủ"
+msgstr "Back to Home"
+
+# Pharmacy
+msgid "Cơ sở y tế gần tôi"
+msgstr "Medical facilities nearby"
+
+msgid "Tìm nhà thuốc gần vị trí của bạn"
+msgstr "Find pharmacies near you"
+
+msgid "Bản đồ powered by OpenStreetMap"
+msgstr "Map powered by OpenStreetMap"
+
+# Home
+msgid "Chụp ảnh"
+msgstr "Take a photo"
+
+msgid "Chụp vùng da để kiểm tra - camera 300×300"
+msgstr "Capture skin area to analyze - camera 300x300"
+
+msgid "Chuyển camera"
+msgstr "Flip camera"
+
+msgid "Chụp ảnh"
+msgstr "Capture photo"
+
+msgid "Tải ảnh từ thư viện"
+msgstr "Upload from gallery"
+
+msgid "Upload ảnh"
+msgstr "Upload photo"
+
+msgid "Upload ảnh để chẩn đoán"
+msgstr "Upload photo for diagnosis"
+
+msgid "Chọn ảnh từ thiết bị của bạn"
+msgstr "Select photo from your device"
+
+msgid "Upload"
+msgstr "Upload"
+
+msgid "Đóng"
+msgstr "Close"
+
+msgid "Dừng"
+msgstr "Stop"
+
+msgid "Gọi Cấp Cứu"
+msgstr "Call Emergency"
+
+msgid "Ảnh sẽ được gửi để kiểm tra; nếu server xử lý sẽ chuyển trang kết quả tự động."
+msgstr "Image will be sent for inspection; redirecting to results automatically."
+
+msgid "Bạn chưa đăng nhập"
+msgstr "You are not logged in"
+
+msgid "Vui lòng đăng nhập để sử dụng tính năng chụp và gửi ảnh."
+msgstr "Please log in to use capture and upload features."
+
+msgid "Hủy"
+msgstr "Cancel"
+
+msgid "Heatmap giải thích"
+msgstr "Heatmap explanation"
+
+msgid "Heatmap hiển thị các vùng ảnh mà AI tập trung để đưa ra dự đoán. Dữ liệu này có thể tham khảo bởi những người có chuyên môn y khoa"
+msgstr "The heatmap highlights areas where AI focused for prediction. This data is for reference by medical professionals."
+
+msgid "Sửa dữ liệu để chẩn đoán nâng cao"
+msgstr "Edit data for advanced diagnosis"
+
+msgid "Sửa thông tin"
+msgstr "Edit information"
+
+msgid "Các thông tin liên quan"
+msgstr "Related information"
+
+msgid "Loại thông tin"
+msgstr "Information type"
+
+msgid "Chi tiết"
+msgstr "Details"
+
+msgid "Giới tính"
+msgstr "Gender"
+
+msgid "Độ tuổi"
+msgstr "Age"
+
+msgid "Triệu chứng"
+msgstr "Symptoms"
+
+msgid "Tiền sử thuốc"
+msgstr "Medication history"
+
+msgid "Tiền sử bệnh"
+msgstr "Medical history"
+
+msgid "Thêm thông tin để chẩn đoán"
+msgstr "Add information for diagnosis"
+
+msgid "Xem hồ sơ"
+msgstr "View Profile"
+
+msgid "Nhập địa chỉ/thành phố nếu GPS không hoạt động"
+msgstr "Enter address/city if GPS is unavailable"
+
+msgid "Tìm"
+msgstr "Find"
+
+msgid "Nhà thuốc"
+msgstr "Pharmacy"
+
+msgid "Bệnh viện"
+msgstr "Hospital"
+
+msgid "Phòng khám"
+msgstr "Clinic"
+
+msgid "Nhà thuốc gần đây"
+msgstr "Nearby pharmacies"
+
+msgid "Gợi ý"
+msgstr "Suggestions"
+
+msgid "Cho phép truy cập vị trí khi được hỏi để tìm nhanh nhất."
+msgstr "Allow location access when asked for fastest search."
+
+msgid "Nếu không cho phép, hãy nhập địa chỉ hoặc tên quận / thành phố và nhấn "Tìm"."
+msgstr "If denied, enter address or district/city name and press "Find"."
+
+msgid "*DermAI có thể có những nhầm lẫn trong việc chẩn đoán. Vui lòng tham khảo ý kiến bác sĩ để có chẩn đoán chính xác."
+msgstr "*DermAI may make mistakes in diagnosis. Please consult a doctor for an accurate diagnosis."
+
+msgid "*Nếu bạn có chuyên môn y khoa. Hãy kiểm tra thật kĩ tình trạng bệnh nhân bằng các biện pháp y khoa chuẩn. DermAI chỉ có khả năng hỗ trợ tốt nhất trong quá trình tiền chẩn đoán"
+msgstr "*If you have medical expertise, please strictly check the patient's condition using standard medical measures. DermAI is only capable of best supporting the pre-diagnosis process."
+
+msgid "Giới tính bệnh nhân"
+msgstr "Patient Gender"
+
+msgid "Độ tuổi bệnh nhân"
+msgstr "Patient Age"
+
+msgid "Nam"
+msgstr "Male"
+
+msgid "Nữ"
+msgstr "Female"
+
+msgid "Mụn cóc"
+msgstr "Warts"
+
+msgid "Da bình thường hoặc cần thêm dữ liệu để chẩn đoán"
+msgstr "Normal skin or additional data needed for diagnosis"
+
+msgid "Bệnh vẩy nến hoặc các bệnh tương tự"
+msgstr "Psoriasis or similar conditions"
+
+msgid "Bệnh ghẻ, bệnh Lyme hoặc các bệnh nhiễm trùng và vết cắn tương tự"
+msgstr "Scabies, Lyme disease, or similar infections and bites"
+
+msgid "Sừng hóa bã nhờn và các khối u lành tính khác"
+msgstr "Seborrheic keratosis and other benign tumors"
+
+msgid "Bệnh chàm"
+msgstr "Eczema"
+
+msgid "Mụn trứng cá, các loại mụn khác hoặc da ửng đỏ"
+msgstr "Acne, other acne types, or skin redness"

@@ -22,6 +22,7 @@ from django.core.files.storage import default_storage
 from django.urls import reverse
 from gradio_client import Client
 from google import genai
+from .translate_result import translate
 # Create your views here.
 # def user
 
@@ -59,7 +60,8 @@ def upload_file(request):
                 image=image_file,
                 result=output['results'],
                 heatmap=heatmap_file,
-                user=Profile.objects.get(user=request.user)
+                user=Profile.objects.get(user=request.user),
+                #result_en = translate_result(output['results'])
             )
             """
             skin_img.image.save("skin_image.jpg", image_file)
@@ -116,7 +118,8 @@ def upload_image(request):
                 image=image_file,
                 result=output['results'],
                 heatmap=heatmap_file,
-                user=Profile.objects.get(user=request.user)
+                user=Profile.objects.get(user=request.user),
+                #result_en = translate_result(output['results'])
             )
             """
             skin_img.image.save("skin_image.jpg", image_file)
@@ -580,26 +583,38 @@ def predict(request, id):
         image.age = age
         image.gender = gender
         image.symptom = symptom
+        image.symptom_en = translate(symptom)
+        image.drug_history_en = translate(drug_history)
+        image.illness_history_en = translate(illness_history)
 
-        try:
-            from google import genai
-        except Exception:
-            genai = None
-
+        # Call Gemini to analyze
         prompt = f"Hãy phân tích kỹ lưỡng thông tin về tình trạng da: {image.result} của một bệnh nhân {image.gender}, {image.age}. Kết hợp các thông tin trên với các triệu chứng: {image.symptom}, tiền sử dùng thuốc: {image.drug_history} (lưu ý phản ứng bất thường), và tiền sử bệnh lý: {image.illness_history} . Xem xét lại chẩn đoán ban đầu, đề xuất các bệnh da liễu khác và đặc biệt các bệnh lý hệ thống hoặc ở cơ quan khác có đồng thời biểu hiện da tương tự và các triệu chứng toàn thân đã nêu, đồng thời đánh giá vai trò của tiền sử dùng thuốc. Sắp xếp các bệnh gợi ý theo độ phổ biến ở người châu Á (từ phổ biến đến hiếm gặp) và mức độ nguy hiểm (từ ít nguy hiểm đến nguy cơ tử vong cao). Lưu ý đây chỉ là kết quả tham khảo."
-
-        if genai:
-            reply = call_gemini(prompt, user=request.user)
+        reply = call_gemini(prompt, user=request.user)
 
         # Truncate very long replies to a reasonable size (avoid huge payloads)
         max_len = 16000
         if isinstance(reply, str) and len(reply) > max_len:
             reply = reply[:max_len] + "\n\n...[truncated]"
 
+        # Translate explanation to English
+        from .utils import translate_text_gemini
+        explain_en = translate_text_gemini(reply, user=request.user)
+        
+        # Translate user inputs to English
+        #image.symptom_en = translate_text_gemini(symptom, user=request.user)
+        #image.drug_history_en = translate_text_gemini(drug_history, user=request.user)
+        #image.illness_history_en = translate_text_gemini(illness_history, user=request.user)
+
         # Convert Markdown (if any) to HTML and sanitize it for safe rendering in client
         try:
-            raw_html = markdown2.markdown(
-                reply) if isinstance(reply, str) else ''
+            raw_html = markdown2.markdown(reply) if isinstance(reply, str) else ''
+            
+            # Translate markdown explanation if reply was markdown (simplified: translate raw text first then markdown)
+            # Actually, `explain_en` is raw text. We need to markdownify it too for display if we want HTML.
+            # But the model field `explain_en` is TextField, assuming it stores HTML like `explain`?
+            # Creating HTML for English explanation
+            raw_html_en = markdown2.markdown(explain_en) if isinstance(explain_en, str) else ''
+
             allowed_tags = [
                 'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'p', 'pre',
                 'strong', 'ul', 'br', 'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
@@ -607,12 +622,23 @@ def predict(request, id):
             allowed_attrs = {
                 'a': ['href', 'title', 'rel', 'target']
             }
-            clean_html = bleach.clean(raw_html, tags=allowed_tags, attributes=allowed_attrs, protocols=[
-                                      'http', 'https', 'mailto'])
+            
+            # Clean Vietnamese HTML
+            clean_html = bleach.clean(raw_html, tags=allowed_tags, attributes=allowed_attrs, protocols=['http', 'https', 'mailto'])
             clean_html = bleach.linkify(clean_html)
+            
+            # Clean English HTML
+            clean_html_en = bleach.clean(raw_html_en, tags=allowed_tags, attributes=allowed_attrs, protocols=['http', 'https', 'mailto'])
+            clean_html_en = bleach.linkify(clean_html_en)
+            
         except Exception:
             clean_html = ''
+            clean_html_en = ''
 
         image.explain = clean_html
+        image.explain_en = clean_html_en
         image.save()
         return redirect('result', image_id=image.id)
+    
+    # Fallback for GET request
+    return redirect('result', image_id=id)
