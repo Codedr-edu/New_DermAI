@@ -31,3 +31,4 @@ whitenoise
 gunicorn==21.2.0
 google-generativeai
 google-genai
+deep-translator
