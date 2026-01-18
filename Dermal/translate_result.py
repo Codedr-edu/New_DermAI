@@ -7,4 +7,4 @@ def translate_result(result):
     return result
 
 def translate(text):
-    return GoogleTranslator(src=auto, dest='en').translate(text)
+    return GoogleTranslator(src='vi', dest='en').translate(text)
