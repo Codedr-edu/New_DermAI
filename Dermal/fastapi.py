@@ -1,6 +1,6 @@
 import requests
 
-url = "https://codedr-skin-detection.hf.space/predict_with_gradcam"
+url = "https://codedr-skin-detection-torch.hf.space/predict_with_gradcam"
 
 
 def fast_api(image_b64):
