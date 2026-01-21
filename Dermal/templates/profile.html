@@ -153,8 +153,7 @@
                             <p><strong>Heatmap giải thích:</strong></p>
                             <img src="data:image/png;base64,{{ classification.explain }}" alt="Grad-CAM Heatmap" class="heatmap-img">
                             {% endif %}-->
-                        <small class="text-muted">{% trans "Ngày tải lên" %}: {{ classification.uploaded_at|date:"d/m/Y
-                            H:i" }}</small>
+                        <small class="text-muted">{% trans "Ngày tải lên" %}: {{ classification.uploaded_at|date:"d/m/Y H:i" }}</small>
                     </div>
                 </div>
             </div>
