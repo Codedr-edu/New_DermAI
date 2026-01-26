@@ -4,7 +4,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 # Collect static files
-#python manage.py collectstatic --no-input
+python manage.py collectstatic --no-input
 
 # Run migrations
 python manage.py makemigrations Dermal

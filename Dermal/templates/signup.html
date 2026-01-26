@@ -79,13 +79,22 @@
         <div class="hint">{% trans 'Đăng ký tài khoản mới' %}</div>
       </div>
 
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email" required>
+          <input type="email" name="email" class="form-control" placeholder="Email" value="{{ data.email|default:'' }}" required>
         </div>
         <div class="mb-3">
-          <input type="text" name="username" class="form-control" placeholder="{% trans 'Tên đăng nhập' %}" required>
+          <input type="text" name="username" class="form-control" placeholder="{% trans 'Tên đăng nhập' %}" value="{{ data.username|default:'' }}" required>
         </div>
         <div class="mb-3">
           <input type="password" name="password" class="form-control" placeholder="{% trans 'Mật khẩu' %}" required>
@@ -96,10 +105,23 @@
         </div>
         <div class="mb-3">
           <label for="birth_date" class="form-label">{% trans 'Ngày sinh' %}</label>
-          <input type="date" name="birth_date" id="birth_date" class="form-control" required>
+          <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ data.birth_date|default:'' }}" required>
         </div>
         <button type="submit" class="btn btn-primary w-100">{% trans 'Đăng ký' %}</button>
       </form>
+
+      <div class="mt-3 mb-3">
+        <div class="text-muted small">{% trans 'Hoặc đăng ký với' %}</div>
+      </div>
+
+      <div class="d-grid gap-2">
+        <a href="{% url 'google_login' %}" class="btn btn-outline-secondary d-flex align-items-center justify-content-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+            <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+          </svg>
+          {% trans 'Tiếp tục với Google' %}
+        </a>
+      </div>
 
       <div class="mt-3">
         <a href="/login" class="text-decoration-none">{% trans 'Đã có tài khoản? Đăng nhập' %}</a>

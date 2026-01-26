@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.translation import gettext as _
 import base64
 import re
 import httpx
@@ -8,7 +9,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import *
 # from .AI_detection import predict_skin_with_explanation
 # from .gardio import gardio
@@ -282,6 +283,9 @@ def call_gemini(prompt, user=None):
         return fallback
 
 
+from django.contrib import messages
+from django.db import IntegrityError
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username') or request.POST.get('email')
@@ -290,6 +294,9 @@ def login_view(request):
         if user is not None:
             login(request, user)
             return redirect('home')
+        else:
+            messages.error(request, _("Tên đăng nhập hoặc mật khẩu không chính xác."))
+            return render(request, 'login.html', {'data': request.POST})
     return render(request, 'login.html')
 
 
@@ -300,17 +307,33 @@ def signup_view(request):
         password = request.POST.get('password')
         avatar = request.FILES.get('avatar')
         birth_date = request.POST.get('birth_date')
-        # Xử lý đăng ký người dùng ở đây (lưu vào cơ sở dữ liệu, xác thực, v.v.)
-        # Ví dụ:
-        user = User.objects.create_user(
-            username=username, email=email, password=password)
-        profile = Profile.objects.create(user=user, birth_date=birth_date)
-        if avatar:
-            profile.avatar = avatar
+        
+        try:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, _("Tên đăng nhập đã tồn tại."))
+                return render(request, 'signup.html', {'data': request.POST})
+            
+            if User.objects.filter(email=email).exists():
+                messages.error(request, _("Email đã được sử dụng."))
+                return render(request, 'signup.html', {'data': request.POST})
+
+            user = User.objects.create_user(
+                username=username, email=email, password=password)
+            
+            # Use get_or_create because the signal might have already created it
+            profile, created = Profile.objects.get_or_create(user=user)
+            if birth_date:
+                profile.birth_date = birth_date
+            if avatar:
+                profile.avatar = avatar
             profile.save()
-        login(request, user)  # Đăng nhập tự động sau khi đăng ký
-        # Chuyển hướng đến trang chính sau khi đăng ký
-        return redirect('home')
+            
+            login(request, user)
+            return redirect('home')
+        except Exception as e:
+            messages.error(request, _("Đã xảy ra lỗi trong quá trình đăng ký: ") + str(e))
+            return render(request, 'signup.html', {'data': request.POST})
+            
     return render(request, 'signup.html')
 
 
@@ -642,3 +665,8 @@ def predict(request, id):
     
     # Fallback for GET request
     return redirect('result', image_id=id)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

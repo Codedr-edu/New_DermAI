@@ -25,6 +25,8 @@ gradio_client
 
 # Authentication and password hashing
 bcrypt
+django-allauth
+PyJWT
 
 # Static files and production server
 whitenoise

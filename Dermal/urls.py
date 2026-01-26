@@ -5,6 +5,7 @@ urlpatterns = [
     path('', home_view, name='home'),
     path('upload/', upload_image, name='upload_image'),
     path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('signup/', signup_view, name='signup'),
     path('chatbot/', chatbot_view, name='chatbot'),
     path('community/', community_view, name='community'),

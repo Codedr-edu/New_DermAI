@@ -28,4 +28,5 @@ urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('Dermal.urls')),
     path('tinymce/', include('tinymce.urls')),
+    path('accounts/', include('allauth.urls')),  # OAuth URLs
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

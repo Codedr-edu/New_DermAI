@@ -1,7 +1,7 @@
 
 import os
 
-po_file = r"c:\Users\anhhu\New_DermAI\locale\en\LC_MESSAGES\django.po"
+po_file = r"c:\Users\anhhu\Desktop\DermAI - Website\New_DermAI\locale\en\LC_MESSAGES\django.po"
 
 new_entries = [
     # Result HTML
@@ -60,7 +60,36 @@ new_entries = [
     ("Chụp ảnh", "Capture photo"),
     ("Chụp vùng da để kiểm tra - camera 300×300", "Capture skin area to check - camera 300×300"),
     ("Chuyển camera", "Switch camera"),
-    ("Tải ảnh từ thư viện", "Upload from library")
+    ("Tải ảnh từ thư viện", "Upload from library"),
+    
+    # Error messages
+    ("Tên đăng nhập hoặc mật khẩu không chính xác.", "Incorrect username or password."),
+    ("Tên đăng nhập đã tồn tại.", "Username already exists."),
+    ("Email đã được sử dụng.", "Email is already in use."),
+    ("Đã xảy ra lỗi trong quá trình đăng ký: ", "An error occurred during registration: "),
+
+    # OAuth
+    ("Hoặc đăng nhập với", "Or log in with"),
+    ("Hoặc đăng ký với", "Or sign up with"),
+    ("Tiếp tục với Google", "Continue with Google"),
+
+    # Social Account Pages
+    ("Xác nhận đăng nhập", "Login Confirmation"),
+    ("Đăng nhập với Google", "Sign in with Google"),
+    ("Bạn đang chuẩn bị đăng nhập vào DermAI bằng tài khoản từ", "You are about to sign in to DermAI using an account from"),
+    ("Tiếp tục", "Continue"),
+    ("Hủy bỏ", "Cancel"),
+    
+    ("Lỗi xác thực", "Authentication Error"),
+    ("Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại sau hoặc sử dụng phương thức khác.", "An error occurred during the login process. Please try again later or use a different method."),
+    ("Quay lại Đăng nhập", "Back to Login"),
+    ("Trang chủ", "Home"),
+    
+    ("Hoàn tất đăng ký", "Complete Registration"),
+    ("Hoàn tất tài khoản", "Complete Account Setup"),
+    ("Bạn đã xác thực thành công qua", "You have successfully authenticated via"),
+    ("Vui lòng xác nhận tên đăng nhập của bạn để hoàn tất.", "Please confirm your username to complete."),
+    ("Nhập tên đăng nhập", "Enter username"),
 ]
 
 with open(po_file, "r", encoding="utf-8") as f:

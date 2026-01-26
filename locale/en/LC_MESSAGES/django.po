@@ -287,3 +287,165 @@ msgstr "Eczema"
 
 msgid "Mụn trứng cá, các loại mụn khác hoặc da ửng đỏ"
 msgstr "Acne, other acne types, or skin redness"
+
+msgid "Mụn trứng cá và da ửng đỏ"
+msgstr "Acne and Rosacea"
+
+msgid "Dày sừng quang hóa, ung thư biểu mô tế bào đáy và các tổn thương ác tính khác"
+msgstr "Actinic Keratosis, Basal Cell Carcinoma and Other Malignant Lesions"
+
+msgid "Viêm da cơ địa"
+msgstr "Atopic Dermatitis"
+
+msgid "Viêm mô tế bào"
+msgstr "Cellulitis"
+
+msgid "Chốc lở và các nhiễm khuẩn do vi khuẩn khác"
+msgstr "Impetigo and Other Bacterial Infections"
+
+msgid "Khối u hoặc các tổn thương lành tính khác"
+msgstr "Tumors or Other Benign Lesions"
+
+msgid "Các bệnh da bị bọng nước"
+msgstr "Bullous Skin Diseases"
+
+msgid "Viêm mô tế bào, chốc lở và các bệnh nhiễm trùng do vi khuẩn khác"
+msgstr "Cellulitis, Impetigo and Other Bacterial Infections"
+
+msgid "Phát ban và phát ban do thuốc"
+msgstr "Exanthems and Drug Eruptions"
+
+msgid "Nhiễm nấm bàn chân"
+msgstr "Tinea Pedis"
+
+msgid "Nấm móng"
+msgstr "Onychomycosis"
+
+msgid "Hắc lào"
+msgstr "Tinea Corporis"
+
+msgid "Rụng tóc (alopecia) và các bệnh lý về tóc"
+msgstr "Alopecia and Hair Disorders"
+
+msgid "Herpes, HPV và các bệnh lây truyền qua đường tình dục khác"
+msgstr "Herpes, HPV and Other STDs"
+
+msgid "Các bệnh và rối loạn sắc tố da"
+msgstr "Pigmentation Disorders"
+
+msgid "Lupus ban đỏ và các bệnh mô liên kết khác"
+msgstr "Lupus Erythematosus and Other Connective Tissue Diseases"
+
+msgid "Khối u & Tổn thương ác tính"
+msgstr "Tumors & Malignant Lesions"
+
+msgid "Ung thư hắc tố da, nốt ruồi và các tổn thương sắc tố khác"
+msgstr "Melanoma, Nevus and Other Pigmented Lesions"
+
+msgid "Nhiễm nấm móng và các bệnh lý khác của móng"
+msgstr "Onychomycosis and Other Nail Conditions"
+
+msgid "Ấu trùng di chuyển dưới da (cutaneous larva migrans)"
+msgstr "Cutaneous Larva Migrans"
+
+msgid "Viêm da tiếp xúc"
+msgstr "Contact Dermatitis"
+
+msgid "Vảy nến, lichen phẳng và các bệnh da liên quan"
+msgstr "Psoriasis, Lichen Planus and Related Diseases"
+
+msgid "Phát ban da"
+msgstr "Skin Rashes"
+
+msgid "Ghẻ, bệnh Lyme và các bệnh do ký sinh trùng hoặc côn trùng đốt khác"
+msgstr "Scabies, Lyme Disease and Other Parasitic/Insect Bite Diseases"
+
+msgid "Dày sừng tiết bã và các khối u da lành tính khác"
+msgstr "Seborrheic Keratosis and Other Benign Skin Tumors"
+
+msgid "Bệnh toàn thân có biểu hiện ngoài da"
+msgstr "Systemic Diseases with Cutaneous Manifestations"
+
+msgid "Nhiễm nấm da, nhiễm Candida và các bệnh nấm khác"
+msgstr "Dermatophytosis, Candidiasis and Other Fungal Diseases"
+
+msgid "Mề đay và các phản ứng dị ứng khác"
+msgstr "Urticaria and Other Allergic Reactions"
+
+msgid "U mạch máu"
+msgstr "Vascular Tumors"
+
+msgid "Viêm mạch máu"
+msgstr "Vasculitis"
+
+msgid "Bệnh thủy đậu"
+msgstr "Chickenpox"
+
+msgid "Zona thần kinh (Herpes zoster)"
+msgstr "Herpes Zoster"
+
+msgid "Mụn cóc, u mềm lây và các bệnh nhiễm virus da khác"
+msgstr "Warts, Molluscum Contagiosum and Other Viral Infections"
+
+msgid "Tên đăng nhập hoặc mật khẩu không chính xác."
+msgstr "Incorrect username or password."
+
+msgid "Tên đăng nhập đã tồn tại."
+msgstr "Username already exists."
+
+msgid "Email đã được sử dụng."
+msgstr "Email is already in use."
+
+msgid "Đã xảy ra lỗi trong quá trình đăng ký: "
+msgstr "An error occurred during registration: "
+
+msgid "Hoặc đăng nhập với"
+msgstr "Or log in with"
+
+msgid "Hoặc đăng ký với"
+msgstr "Or sign up with"
+
+msgid "Tiếp tục với Google"
+msgstr "Continue with Google"
+
+msgid "Xác nhận đăng nhập"
+msgstr "Login Confirmation"
+
+msgid "Đăng nhập với Google"
+msgstr "Sign in with Google"
+
+msgid "Bạn đang chuẩn bị đăng nhập vào DermAI bằng tài khoản từ"
+msgstr "You are about to sign in to DermAI using an account from"
+
+msgid "Tiếp tục"
+msgstr "Continue"
+
+msgid "Hủy bỏ"
+msgstr "Cancel"
+
+msgid "Lỗi xác thực"
+msgstr "Authentication Error"
+
+msgid "Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại sau hoặc sử dụng phương thức khác."
+msgstr "An error occurred during the login process. Please try again later or use a different method."
+
+msgid "Quay lại Đăng nhập"
+msgstr "Back to Login"
+
+msgid "Trang chủ"
+msgstr "Home"
+
+msgid "Hoàn tất đăng ký"
+msgstr "Complete Registration"
+
+msgid "Hoàn tất tài khoản"
+msgstr "Complete Account Setup"
+
+msgid "Bạn đã xác thực thành công qua"
+msgstr "You have successfully authenticated via"
+
+msgid "Vui lòng xác nhận tên đăng nhập của bạn để hoàn tất."
+msgstr "Please confirm your username to complete."
+
+msgid "Nhập tên đăng nhập"
+msgstr "Enter username"

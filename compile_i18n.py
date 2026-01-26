@@ -121,4 +121,4 @@ def compile_file(po_path, mo_path):
     print(f"Success: Compiled {po_path} -> {mo_path}")
 
 if __name__ == "__main__":
-    compile_file(r'c:\Users\anhhu\New_DermAI\locale\en\LC_MESSAGES\django.po', r'c:\Users\anhhu\New_DermAI\locale\en\LC_MESSAGES\django.mo')
+    compile_file(r'c:\Users\anhhu\Desktop\DermAI - Website\New_DermAI\locale\en\LC_MESSAGES\django.po', r'c:\Users\anhhu\Desktop\DermAI - Website\New_DermAI\locale\en\LC_MESSAGES\django.mo')
