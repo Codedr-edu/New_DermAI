@@ -588,7 +588,7 @@ def predict(request, id):
         image.illness_history_en = translate(illness_history)
 
         # Call Gemini to analyze
-        prompt = f"Hãy phân tích kỹ lưỡng thông tin về tình trạng da: {image.result} của một bệnh nhân {image.gender}, {image.age}. Kết hợp các thông tin trên với các triệu chứng: {image.symptom}, tiền sử dùng thuốc: {image.drug_history} (lưu ý phản ứng bất thường), và tiền sử bệnh lý: {image.illness_history} . Xem xét lại chẩn đoán ban đầu, đề xuất các bệnh da liễu khác và đặc biệt các bệnh lý hệ thống hoặc ở cơ quan khác có đồng thời biểu hiện da tương tự và các triệu chứng toàn thân đã nêu, đồng thời đánh giá vai trò của tiền sử dùng thuốc. Sắp xếp các bệnh gợi ý theo độ phổ biến ở người châu Á (từ phổ biến đến hiếm gặp) và mức độ nguy hiểm (từ ít nguy hiểm đến nguy cơ tử vong cao). Lưu ý đây chỉ là kết quả tham khảo."
+        prompt = f"Phân tích ca da liễu: Bệnh nhân {image.gender}, {image.age}. Dữ liệu đầu vào: Tổn thương da qua ảnh {image.result}, triệu chứng {image.symptom}, tiền sử thuốc {image.drug_history} và bệnh lý {image.illness_history}. Yêu cầu: 1. Đưa ra danh sách các chẩn đoán khả thi (ưu tiên bệnh phổ biến ở người Châu Á), sắp xếp từ nhẹ đến nguy hiểm tính mạng. 2. Làm rõ mối liên hệ giữa tổn thương da với các bệnh lý hệ thống hoặc phản ứng phụ của thuốc bệnh nhân đang dùng. 3. Trình bày dưới dạng danh sách gạch đầu dòng hoặc bảng biểu, ưu tiên ngôn ngữ dễ hiểu, ngắn gọn. (Lưu ý: Kết quả chỉ mang tính chất tham khảo y khoa). "
         reply = call_gemini(prompt, user=request.user)
 
         # Truncate very long replies to a reasonable size (avoid huge payloads)
