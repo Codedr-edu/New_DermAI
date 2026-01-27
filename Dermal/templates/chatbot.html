@@ -203,7 +203,7 @@
     <!-- bottom navbar copied from home.html -->
     <nav class="navbar navbar-light bg-white border-top fixed-bottom">
         <div class="container d-flex justify-content-around py-2">
-            <a href="/" class="d-flex flex-column align-items-center text-decoration-none text-muted"
+            <a href="{% url 'home' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted"
                 aria-current="page">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-camera-fill" viewBox="0 0 16 16">
@@ -220,14 +220,14 @@
           <!--<small class="d-block">Cộng đồng</small>
         </a>-->
 
-            <a href="/chatbot" class="d-flex flex-column align-items-center text-decoration-none text-primary">
+            <a href="{% url 'chatbot' %}" class="d-flex flex-column align-items-center text-decoration-none text-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mb-1"
                     viewBox="0 0 16 16">
                     <path d="M2 2h12v9H5.414L3 13.414V2z" />
                 </svg>
             </a>
 
-            <a href="/pharmacy" class="d-flex flex-column align-items-center text-decoration-none text-muted">
+            <a href="{% url 'pharmacy' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-capsule-pill" viewBox="0 0 16 16">
                     <path
@@ -244,7 +244,7 @@
                 <!--<small class="d-block">Gọi cấp cứu</small>-->
             </a>
 
-            <a href="/profile" class="d-flex flex-column align-items-center text-decoration-none text-muted">
+            <a href="{% url 'your_profile' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -277,7 +277,7 @@
             appendBubble('{% trans "Đang gửi..." %}', 'bot');
             // POST to Django backend
             try {
-                const resp = await fetch('/chatbot/api/', {
+                const resp = await fetch('{% url "chatbot_api" %}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -309,15 +309,15 @@
                     } else if (data.reply) {
                         appendBubble(data.reply, 'bot');
                     } else {
-                        appendBubble('Lỗi: Không nhận được phản hồi từ server.', 'bot');
+                        appendBubble('{% trans "Lỗi: Không nhận được phản hồi từ server." %}', 'bot');
                     }
                 } else {
-                    appendBubble('Lỗi: Không nhận được phản hồi từ server.', 'bot');
+                    appendBubble('{% trans "Lỗi: Không nhận được phản hồi từ server." %}', 'bot');
                 }
             } catch (e) {
                 const lastBot = [...chatBody.querySelectorAll('.bubble.bot')].pop();
                 if (lastBot && lastBot.textContent === 'Đang gửi...') lastBot.remove();
-                appendBubble('Lỗi kết nối: ' + (e.message || e), 'bot');
+                appendBubble('{% trans "Lỗi kết nối:" %} ' + (e.message || e), 'bot');
             }
         }
 

@@ -449,3 +449,72 @@ msgstr "Please confirm your username to complete."
 
 msgid "Nhập tên đăng nhập"
 msgstr "Enter username"
+
+msgid "Bệnh viện gần đây"
+msgstr "Nearby hospitals"
+
+msgid "Phòng khám gần đây"
+msgstr "Nearby clinics"
+
+msgid "Cơ sở y tế gần đây"
+msgstr "Nearby medical facilities"
+
+msgid "Nhà thuốc gần tôi - DermAI"
+msgstr "Pharmacies near me - DermAI"
+
+msgid "Bệnh viện gần tôi - DermAI"
+msgstr "Hospitals near me - DermAI"
+
+msgid "Phòng khám gần tôi - DermAI"
+msgstr "Clinics near me - DermAI"
+
+msgid "Cơ sở y tế gần tôi - DermAI"
+msgstr "Medical facilities near me - DermAI"
+
+msgid "Tìm bệnh viện gần vị trí của bạn"
+msgstr "Find hospitals near your location"
+
+msgid "Tìm phòng khám gần vị trí của bạn"
+msgstr "Find clinics near your location"
+
+msgid "Tìm cơ sở y tế gần vị trí của bạn"
+msgstr "Find medical facilities near your location"
+
+msgid "Bạn ở đây"
+msgstr "You are here"
+
+msgid "Không thể xác định vị trí. Hãy nhập địa chỉ thủ công."
+msgstr "Unable to determine location. Please enter address manually."
+
+msgid "Không tìm thấy địa điểm, thử nhập cụ thể hơn."
+msgstr "Location not found, try entering more specifically."
+
+msgid "Lỗi khi tìm địa điểm."
+msgstr "Error finding location."
+
+msgid "Mở camera"
+msgstr "Open Camera"
+
+msgid "Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập hoặc thiết bị."
+msgstr "Unable to access camera. Please check permissions or device."
+
+msgid "Camera không hoạt động. Vui lòng khởi động lại."
+msgstr "Camera not working. Please restart."
+
+msgid "Camera chưa sẵn sàng, vui lòng chờ và thử lại."
+msgstr "Camera not ready, please wait and try again."
+
+msgid "Video chưa tải đầy đủ, vui lòng chờ và thử lại."
+msgstr "Video not fully loaded, please wait and try again."
+
+msgid "Video không đang phát. Vui lòng thử lại."
+msgstr "Video not playing. Please try again."
+
+msgid "Lỗi khi xử lý ảnh. Vui lòng thử lại."
+msgstr "Error processing image. Please try again."
+
+msgid "Lỗi: Không nhận được phản hồi từ server."
+msgstr "Error: No response from server."
+
+msgid "Lỗi kết nối:"
+msgstr "Connection error:"

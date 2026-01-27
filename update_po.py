@@ -27,22 +27,24 @@ new_entries = [
     ("Bệnh viện", "Hospital"),
     ("Phòng khám", "Clinic"),
     ("Nhà thuốc gần đây", "Nearby pharmacies"),
+    ("Bệnh viện gần đây", "Nearby hospitals"),
+    ("Phòng khám gần đây", "Nearby clinics"),
+    ("Cơ sở y tế gần đây", "Nearby medical facilities"),
+    ("Nhà thuốc gần tôi - DermAI", "Pharmacies near me - DermAI"),
+    ("Bệnh viện gần tôi - DermAI", "Hospitals near me - DermAI"),
+    ("Phòng khám gần tôi - DermAI", "Clinics near me - DermAI"),
+    ("Cơ sở y tế gần tôi - DermAI", "Medical facilities near me - DermAI"),
+    ("Tìm nhà thuốc gần vị trí của bạn", "Find pharmacies near your location"),
+    ("Tìm bệnh viện gần vị trí của bạn", "Find hospitals near your location"),
+    ("Tìm phòng khám gần vị trí của bạn", "Find clinics near your location"),
+    ("Tìm cơ sở y tế gần vị trí của bạn", "Find medical facilities near your location"),
+    ("Bạn ở đây", "You are here"),
     ("Gợi ý", "Suggestions"),
     ("Cho phép truy cập vị trí khi được hỏi để tìm nhanh nhất.", "Allow location access when asked for fastest search."),
-    ("Giới tính bệnh nhân", "Patient Gender"),
-    ("Độ tuổi bệnh nhân", "Patient Age"),
-    ("Nam", "Male"),
-    ("Nữ", "Female"),
     ("Nếu không cho phép, hãy nhập địa chỉ hoặc tên quận / thành phố và nhấn \"Tìm\".", "If denied, enter address or district/city name and press \"Find\"."),
-    
-    # Disease Names from Image
-    ("Mụn cóc", "Warts"),
-    ("Da bình thường hoặc cần thêm dữ liệu để chẩn đoán", "Normal skin or additional data needed for diagnosis"),
-    ("Bệnh vẩy nến hoặc các bệnh tương tự", "Psoriasis or similar conditions"),
-    ("Bệnh ghẻ, bệnh Lyme hoặc các bệnh nhiễm trùng và vết cắn tương tự", "Scabies, Lyme disease, or similar infections and bites"),
-    ("Sừng hóa bã nhờn và các khối u lành tính khác", "Seborrheic keratosis and other benign tumors"),
-    ("Bệnh chàm", "Eczema"),
-    ("Mụn trứng cá, các loại mụn khác hoặc da ửng đỏ", "Acne, other acne types, or skin redness"),
+    ("Không thể xác định vị trí. Hãy nhập địa chỉ thủ công.", "Unable to determine location. Please enter address manually."),
+    ("Không tìm thấy địa điểm, thử nhập cụ thể hơn.", "Location not found, try entering more specifically."),
+    ("Lỗi khi tìm địa điểm.", "Error finding location."),
     
     # Home HTML
     ("Upload ảnh để chẩn đoán", "Upload photo for diagnosis"),
@@ -50,6 +52,7 @@ new_entries = [
     ("Upload", "Upload"),
     ("Đóng", "Close"),
     ("Dừng", "Stop"),
+    ("Mở camera", "Open Camera"),
     ("Gọi Cấp Cứu", "Call Ambulance"),
     ("Ảnh sẽ được gửi để kiểm tra; nếu server xử lý sẽ chuyển trang kết quả tự động.", "Photo will be sent for inspection; result page will open automatically if server processes it."),
     ("Bạn chưa đăng nhập", "You are not logged in"),
@@ -61,12 +64,26 @@ new_entries = [
     ("Chụp vùng da để kiểm tra - camera 300×300", "Capture skin area to check - camera 300×300"),
     ("Chuyển camera", "Switch camera"),
     ("Tải ảnh từ thư viện", "Upload from library"),
+    ("Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập hoặc thiết bị.", "Unable to access camera. Please check permissions or device."),
+    ("Camera không hoạt động. Vui lòng khởi động lại.", "Camera not working. Please restart."),
+    ("Camera chưa sẵn sàng, vui lòng chờ và thử lại.", "Camera not ready, please wait and try again."),
+    ("Video chưa tải đầy đủ, vui lòng chờ và thử lại.", "Video not fully loaded, please wait and try again."),
+    ("Video không đang phát. Vui lòng thử lại.", "Video not playing. Please try again."),
+    ("Lỗi khi xử lý ảnh. Vui lòng thử lại.", "Error processing image. Please try again."),
     
-    # Error messages
+    # Chatbot HTML
+    ("Lỗi: Không nhận được phản hồi từ server.", "Error: No response from server."),
+    ("Lỗi kết nối:", "Connection error:"),
+    
+    # General & Error messages
     ("Tên đăng nhập hoặc mật khẩu không chính xác.", "Incorrect username or password."),
     ("Tên đăng nhập đã tồn tại.", "Username already exists."),
     ("Email đã được sử dụng.", "Email is already in use."),
     ("Đã xảy ra lỗi trong quá trình đăng ký: ", "An error occurred during registration: "),
+    ("Giới tính bệnh nhân", "Patient Gender"),
+    ("Độ tuổi bệnh nhân", "Patient Age"),
+    ("Nam", "Male"),
+    ("Nữ", "Female"),
 
     # OAuth
     ("Hoặc đăng nhập với", "Or log in with"),

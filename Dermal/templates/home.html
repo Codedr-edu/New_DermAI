@@ -298,7 +298,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" action="/upload/file/" enctype="multipart/form-data">
+                                    <form method="post" action="{% url 'upload_file' %}" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">{% trans 'Chọn ảnh từ thiết bị của bạn' %}</label>
@@ -343,7 +343,7 @@
                     <p class="mb-3 text-muted">{% trans 'Vui lòng đăng nhập để sử dụng tính năng chụp và gửi ảnh.' %}
                     </p>
                     <div class="d-flex justify-content-center gap-2">
-                        <a id="loginLink" href="/login" class="btn btn-primary">{% trans 'Đăng nhập' %}</a>
+                        <a id="loginLink" href="{% url 'login' %}" class="btn btn-primary">{% trans 'Đăng nhập' %}</a>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{% trans 'Hủy' %}</button>
                     </div>
                 </div>
@@ -375,7 +375,7 @@
           <!--<small class="d-block">Cộng đồng</small>
         </a>-->
 
-            <a href="/chatbot" class="d-flex flex-column align-items-center text-decoration-none text-muted">
+            <a href="{% url 'chatbot' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mb-1"
                     viewBox="0 0 16 16">
                     <path d="M2 2h12v9H5.414L3 13.414V2z" />
@@ -383,7 +383,7 @@
                 <!--<small class="d-block">Chatbot</small>-->
             </a>
 
-            <a href="/pharmacy" class="d-flex flex-column align-items-center text-decoration-none text-muted">
+            <a href="{% url 'pharmacy' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-capsule-pill" viewBox="0 0 16 16">
                     <path
@@ -401,7 +401,7 @@
                 <!--<small class="d-block">Gọi cấp cứu</small>-->
             </a>
 
-            <a href="/profile" class="d-flex flex-column align-items-center text-decoration-none text-muted">
+            <a href="{% url 'your_profile' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -467,7 +467,7 @@
                         stopBtn.disabled = false;
                     } catch (e) {
                         console.error('Fallback camera error:', e);
-                        alert('Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập hoặc thiết bị.');
+                        alert('{% trans "Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập hoặc thiết bị." %}');
                         stopBtn.disabled = true;
                     }
                 }
@@ -570,7 +570,7 @@
 
                     // Ensure stop button stops camera while processing
                     stopBtn.disabled = false;
-                    stopBtn.textContent = 'Dừng';
+                    stopBtn.textContent = '{% trans "Dừng" %}';
                     stopBtn.onclick = function () {
                         stopCamera();
                         setProcessingState(false);
@@ -617,7 +617,7 @@
                                 // ignore parse errors silently
                             }
                             // make stop button reopen camera
-                            stopBtn.textContent = 'Mở camera';
+                            stopBtn.textContent = '{% trans "Mở camera" %}';
                             stopBtn.disabled = false;
                             stopBtn.onclick = async function () {
                                 await startCamera();
@@ -648,19 +648,19 @@
                 }
 
                 if (!stream || !stream.active) {
-                    alert('Camera không hoạt động. Vui lòng khởi động lại.');
+                    alert('{% trans "Camera không hoạt động. Vui lòng khởi động lại." %}');
                     return;
                 }
 
                 if (!video || !video.srcObject || video.readyState < 4) {
-                    alert('Camera chưa sẵn sàng, vui lòng chờ và thử lại.');
+                    alert('{% trans "Camera chưa sẵn sàng, vui lòng chờ và thử lại." %}');
                     console.error('Video element not ready:', video);
                     return;
                 }
 
                 // Additional check: ensure video has dimensions loaded
                 if (video.videoWidth === 0 || video.videoHeight === 0) {
-                    alert('Video chưa tải đầy đủ, vui lòng chờ và thử lại.');
+                    alert('{% trans "Video chưa tải đầy đủ, vui lòng chờ và thử lại." %}');
                     setProcessingState(false);
                     console.error('Video dimensions not available yet.');
                     return;
@@ -668,7 +668,7 @@
                 }
 
                 if (video.paused || video.ended) {
-                    alert('Video không đang phát. Vui lòng thử lại.');
+                    alert('{% trans "Video không đang phát. Vui lòng thử lại." %}');
                     return;
                     console.error('Video element is paused or ended.');
                 }
@@ -683,7 +683,7 @@
                     console.log('Image captured and form submitted.');
                 } catch (err) {
                     console.error('Error in captureAndSend:', err);
-                    alert('Lỗi khi xử lý ảnh. Vui lòng thử lại.');
+                    alert('{% trans "Lỗi khi xử lý ảnh. Vui lòng thử lại." %}');
                     setProcessingState(false);
                 }
             }

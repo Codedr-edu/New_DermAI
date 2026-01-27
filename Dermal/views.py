@@ -212,7 +212,7 @@ def call_gemini(prompt, user=None):
     fallback = (
         "Xin chào! Mình hiện đang chạy ở môi trường phát triển nên chưa kết nối được với dịch vụ Gemini.")
 
-    if not api_url or not api_key:
+    if not api_key:
         # Return a simple echo-like placeholder for now
         return f"[DEV REPLY] Mình đã nhận: {prompt[:400]}"
 
@@ -237,7 +237,7 @@ def call_gemini(prompt, user=None):
                 client = genai.Client(api_key=api_key)
                 print(1)
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash-lite", contents=prompt)
+                    model=model, contents=prompt)
                 print(response.text)
                 return response.text if response and hasattr(response, 'text') else fallback
 

@@ -150,7 +150,7 @@
     <!-- bottom navbar copied from home.html to preserve style -->
     <nav class="navbar navbar-light bg-white border-top fixed-bottom">
         <div class="container d-flex justify-content-around py-2">
-            <a href="/" class="d-flex flex-column align-items-center text-decoration-none text-muted"
+            <a href="{% url 'home' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted"
                 aria-current="page">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-camera-fill" viewBox="0 0 16 16">
@@ -166,14 +166,14 @@
           </svg>
         </a>-->
 
-            <a href="/chatbot" class="d-flex flex-column align-items-center text-decoration-none text-muted">
+            <a href="{% url 'chatbot' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mb-1"
                     viewBox="0 0 16 16">
                     <path d="M2 2h12v9H5.414L3 13.414V2z" />
                 </svg>
             </a>
 
-            <a href="/pharmacy" class="d-flex flex-column align-items-center text-decoration-none text-primary">
+            <a href="{% url 'pharmacy' %}" class="d-flex flex-column align-items-center text-decoration-none text-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-capsule-pill" viewBox="0 0 16 16">
                     <path
@@ -190,7 +190,7 @@
                 <!--<small class="d-block">Gọi cấp cứu</small>-->
             </a>
 
-            <a href="/profile" class="d-flex flex-column align-items-center text-decoration-none text-muted">
+            <a href="{% url 'your_profile' %}" class="d-flex flex-column align-items-center text-decoration-none text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -235,7 +235,7 @@
                 userMarker.setLatLng([lat, lon]);
             } else {
                 // show user location as a styled circle marker
-                userMarker = L.circleMarker([lat, lon], { radius: 6, color: '#0d6efd', fillColor: '#0d6efd', fillOpacity: 0.9 }).addTo(map).bindPopup('Bạn ở đây').openPopup();
+                userMarker = L.circleMarker([lat, lon], { radius: 6, color: '#0d6efd', fillColor: '#0d6efd', fillOpacity: 0.9 }).addTo(map).bindPopup('{% trans "Bạn ở đây" %}').openPopup();
             }
         }
 
@@ -269,7 +269,7 @@
 
         function renderList(type, items) {
             const list = document.getElementById('list'); list.innerHTML = '';
-            const defaultName = type === 'pharmacy' ? 'Nhà thuốc' : type === 'hospital' ? 'Bệnh viện' : 'Phòng khám';
+            const defaultName = type === 'pharmacy' ? '{% trans "Nhà thuốc" %}' : type === 'hospital' ? '{% trans "Bệnh viện" %}' : '{% trans "Phòng khám" %}';
             items.forEach((it, idx) => {
                 const name = it.tags.name || defaultName;
                 const addr = [it.tags['addr:street'], it.tags['addr:city']].filter(Boolean).join(', ');
@@ -295,25 +295,26 @@
 
         function updateTitles(type) {
             const listTitles = {
-                'pharmacy': 'Nhà thuốc gần đây',
-                'hospital': 'Bệnh viện gần đây',
-                'clinic': 'Phòng khám gần đây'
+                'pharmacy': '{% trans "Nhà thuốc gần đây" %}',
+                'hospital': '{% trans "Bệnh viện gần đây" %}',
+                'clinic': '{% trans "Phòng khám gần đây" %}'
             };
-            document.getElementById('listTitle').textContent = listTitles[type] || 'Cơ sở y tế gần đây';
+            document.getElementById('listTitle').textContent = listTitles[type] || '{% trans "Cơ sở y tế gần đây" %}';
 
             const mainHints = {
-                <div class="hint text-muted d-none d-md-block" id="mainHint">{% trans "Tìm nhà thuốc gần vị trí của bạn" %}</div>
-            'hospital': 'Tìm bệnh viện gần vị trí của bạn',
-                'clinic': 'Tìm phòng khám gần vị trí của bạn'
+                'pharmacy': 'Tìm nhà thuốc gần vị trí của bạn',
+                'pharmacy': '{% trans "Tìm nhà thuốc gần vị trí của bạn" %}',
+                'hospital': '{% trans "Tìm bệnh viện gần vị trí của bạn" %}',
+                'clinic': '{% trans "Tìm phòng khám gần vị trí của bạn" %}'
             };
-        document.getElementById('mainHint').textContent = mainHints[type] || 'Tìm cơ sở y tế gần vị trí của bạn';
+        document.getElementById('mainHint').textContent = mainHints[type] || '{% trans "Tìm cơ sở y tế gần vị trí của bạn" %}';
 
         const pageTitles = {
-            'pharmacy': 'Nhà thuốc gần tôi - DermAI',
-            'hospital': 'Bệnh viện gần tôi - DermAI',
-            'clinic': 'Phòng khám gần tôi - DermAI'
+            'pharmacy': '{% trans "Nhà thuốc gần tôi - DermAI" %}',
+            'hospital': '{% trans "Bệnh viện gần tôi - DermAI" %}',
+            'clinic': '{% trans "Phòng khám gần tôi - DermAI" %}'
         };
-        document.title = pageTitles[type] || 'Cơ sở y tế gần tôi - DermAI';
+        document.title = pageTitles[type] || '{% trans "Cơ sở y tế gần tôi - DermAI" %}';
         }
 
         async function tryLocateAndShow() {
@@ -345,14 +346,14 @@
                         } else {
                             // show an empty map (center Vietnam) and message
                             initMap(21.028511, 105.804817); // Hanoi center fallback
-                            document.getElementById('list').innerHTML = '<div class="text-muted">Không thể xác định vị trí. Hãy nhập địa chỉ thủ công.</div>';
+                            document.getElementById('list').innerHTML = '<div class="text-muted">{% trans "Không thể xác định vị trí. Hãy nhập địa chỉ thủ công." %}</div>';
                             const type = document.getElementById('typeSelect').value || 'pharmacy';
                             updateTitles(type);
                         }
                     } catch (e) {
                         console.error('IP geolocation failed', e);
                         initMap(21.028511, 105.804817);
-                        document.getElementById('list').innerHTML = '<div class="text-muted">Không thể xác định vị trí. Hãy nhập địa chỉ thủ công.</div>';
+                        document.getElementById('list').innerHTML = '<div class="text-muted">{% trans "Không thể xác định vị trí. Hãy nhập địa chỉ thủ công." %}</div>';
                         const type = document.getElementById('typeSelect').value || 'pharmacy';
                         updateTitles(type);
                     }
@@ -407,9 +408,9 @@
                         renderList(type, items); placeMarkers(type, items);
                         updateTitles(type);
                     } else {
-                        alert('Không tìm thấy địa điểm, thử nhập cụ thể hơn.');
+                        alert('{% trans "Không tìm thấy địa điểm, thử nhập cụ thể hơn." %}');
                     }
-                } catch (e) { console.error(e); alert('Lỗi khi tìm địa điểm.'); }
+                } catch (e) { console.error(e); alert('{% trans "Lỗi khi tìm địa điểm." %}'); }
             });
 
             // initial attempt to locate
