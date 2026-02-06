@@ -48,6 +48,7 @@ def upload_file(request):
 
             # Gọi model dự đoán với giải thích heatmap
             # results, heatmap_base64 = predict_skin_with_explanation(img_bytes)
+            print(img_bytes)
             # output = client.predict(img_bytes, api_name="/predict_with_gradcam")
             img_b64 = base64.b64encode(img_bytes).decode("utf-8")
             output = fast_api(img_b64)
@@ -99,6 +100,7 @@ def upload_image(request):
                 # Bỏ header base64
                 img_str = re.sub("^data:image/.+;base64,", "", image_data)
                 img_bytes = base64.b64decode(img_str)
+                print(img_bytes)
                 file_name = "skin_capture.jpg"
 
             # Lưu ảnh vào ImageField
