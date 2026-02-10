@@ -613,7 +613,38 @@ def predict(request, id):
         image.illness_history_en = translate(illness_history)
 
         # Call Gemini to analyze
-        prompt = f"Phân tích ca da liễu: Bệnh nhân {image.gender}, {image.age}. Dữ liệu đầu vào: Tổn thương da qua ảnh {image.result}, triệu chứng {image.symptom}, tiền sử thuốc {image.drug_history} và bệnh lý {image.illness_history}. Yêu cầu: 1. Đưa ra danh sách các chẩn đoán khả thi (ưu tiên bệnh phổ biến ở người Châu Á), sắp xếp từ nhẹ đến nguy hiểm tính mạng. 2. Làm rõ mối liên hệ giữa tổn thương da với các bệnh lý hệ thống hoặc phản ứng phụ của thuốc bệnh nhân đang dùng. 3. Trình bày dưới dạng danh sách gạch đầu dòng hoặc bảng biểu, ưu tiên ngôn ngữ dễ hiểu, ngắn gọn. (Lưu ý: Kết quả chỉ mang tính chất tham khảo y khoa). "
+        prompt = f"""
+            Bạn là một chuyên gia hỗ trợ phân tích da liễu. Hãy xử lý dữ liệu của bệnh nhân: {image.gender}, {image.age} tuổi.
+
+            DỮ LIỆU ĐẦU VÀO:
+            - Kết quả từ mô hình CNN (JSON): {image.result}
+            - Triệu chứng: {image.symptom}
+            - Tiền sử thuốc: {image.drug_history}
+            - Bệnh lý nền: {image.illness_history}
+
+            HƯỚNG DẪN TƯ DUY CHO AI:
+            1. Tìm thông tin: Hãy phân tích JSON {image.result} để xác định bệnh có xác suất cao nhất. So chiếu với triệu chứng {image.symptom} xem có khớp với biểu hiện lâm sàng thông thường của bệnh đó không.
+            2. Liên kết dữ liệu: Kiểm tra xem thuốc {image.drug_history} có tác dụng phụ gây phát ban da không, hoặc bệnh lý {image.illness_history} có làm trầm trọng thêm tình trạng da hiện tại không.
+            3. Ưu tiên: Luôn ưu tiên các chẩn đoán phổ biến ở người Châu Á. Sắp xếp các khả năng theo thứ tự từ nhẹ đến cần cảnh giác.
+
+            YÊU CẦU TRÌNH BÀY (CHỈ TRẢ VỀ CÁC ĐOẠN VĂN, KHÔNG DÙNG BẢNG, KHÔNG DÙNG CÁC KỸ HIỆU VÀ CÁC CÁCH TRÌNH BÀY ĐẶC BIỆT):
+
+            Đoạn 1 - Nhận diện tình trạng: 
+            Diễn giải kết quả từ mô hình CNN một cách tự nhiên. Cho người dùng biết hệ thống nghiêng về khả năng nào nhất và mô tả đặc điểm của tình trạng đó để họ đối chiếu.
+
+            Đoạn 2 - Phân tích nguyên nhân & Liên quan: 
+            Giải thích logic mối liên hệ giữa tổn thương da với tiền sử thuốc và bệnh lý nền. Nếu không có liên quan rõ ràng, hãy nêu các yếu tố kích ứng phổ biến khác (thời tiết, thực phẩm).
+
+            Đoạn 3 - Hướng dẫn theo dõi: 
+            Đưa ra các bước kiểm tra tiếp theo (ví dụ: dùng tay ấn xem có nhạt màu không, theo dõi tốc độ lan của vết đỏ, hoặc kiểm tra thân nhiệt).
+
+            Đoạn 4 - Lời khuyên & Hành động: 
+            Đưa ra lời khuyên mang tính khích lệ nhưng cương quyết về việc đến cơ sở y tế gần nhất. Nhấn mạnh rằng AI không thay thế được bác sĩ.
+
+            LƯU Ý QUAN TRỌNG: 
+            - Ngôn ngữ: Dễ hiểu, không dùng từ chuyên môn quá khó.
+            - Định dạng: Chỉ dùng văn bản thuần, không Markdown phức tạp, không tiêu đề lớn (#), chỉ xuống dòng rõ ràng giữa các đoạn.
+            """
         reply = call_gemini(prompt, user=request.user)
 
         # Truncate very long replies to a reasonable size (avoid huge payloads)
