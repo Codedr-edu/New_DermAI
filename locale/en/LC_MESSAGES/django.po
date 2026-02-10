@@ -518,3 +518,15 @@ msgstr "Error: No response from server."
 
 msgid "Lỗi kết nối:"
 msgstr "Connection error:"
+
+msgid "Mô tả triệu chứng..."
+msgstr "Describe symptoms..."
+
+msgid "Mô tả các bệnh đã từng mắc..."
+msgstr "Describe past illnesses..."
+
+msgid "Mô tả các loại thuốc từng dùng gần đây..."
+msgstr "Describe medications used recently..."
+
+msgid "Gửi thông tin"
+msgstr "Submit information"

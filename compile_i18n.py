@@ -121,4 +121,8 @@ def compile_file(po_path, mo_path):
     print(f"Success: Compiled {po_path} -> {mo_path}")
 
 if __name__ == "__main__":
-    compile_file(r'c:\Users\anhhu\Desktop\DermAI - Website\New_DermAI\locale\en\LC_MESSAGES\django.po', r'c:\Users\anhhu\Desktop\DermAI - Website\New_DermAI\locale\en\LC_MESSAGES\django.mo')
+    import os
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    po_path = os.path.join(base_dir, 'locale', 'en', 'LC_MESSAGES', 'django.po')
+    mo_path = os.path.join(base_dir, 'locale', 'en', 'LC_MESSAGES', 'django.mo')
+    compile_file(po_path, mo_path)

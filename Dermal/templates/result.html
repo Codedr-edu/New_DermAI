@@ -1,6 +1,7 @@
 <!doctype html>
 {% load i18n %}
-<html lang="vi">
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
   <meta property="og:title" content="DermAI - Ứng dụng AI hỗ trợ chẩn đoán bệnh da liễu">
@@ -239,8 +240,8 @@
                   <div class="row">
                     <div class="col-lg">
                       <label>{% trans 'Triệu chứng' %}</label>
-                      <textarea class="form-control w-100" name="symptom" rows="3" placeholder="Mô tả triệu chứng..."
-                        required>{{skin_image.symptom}}</textarea>
+                      <textarea class="form-control w-100" name="symptom" rows="3"
+                        placeholder="{% trans 'Mô tả triệu chứng...' %}" required>{{skin_image.symptom}}</textarea>
                     </div>
                   </div>
                 </div>
@@ -249,12 +250,13 @@
                     <div class="col-lg">
                       <label>{% trans 'Tiền sử bệnh' %}</label>
                       <textarea class="form-control w-100" name="illness_history" rows="3"
-                        placeholder="Mô tả các bệnh đã từng mắc..." required>{{skin_image.illness_history}}</textarea>
+                        placeholder="{% trans 'Mô tả các bệnh đã từng mắc...' %}"
+                        required>{{skin_image.illness_history}}</textarea>
                     </div>
                     <div class="col-lg">
                       <label>{% trans 'Tiền sử thuốc' %}</label>
                       <textarea class="form-control w-100" name="drug_history" rows="3"
-                        placeholder="Mô tả các loại thuốc từng dùng gần đây..."
+                        placeholder="{% trans 'Mô tả các loại thuốc từng dùng gần đây...' %}"
                         required>{{skin_image.drug_history}}</textarea>
                     </div>
                   </div>
@@ -262,7 +264,7 @@
                 <div class="mb-3">
                   <div class="row">
                     <div class="col-lg">
-                      <button type="submit" class="w-100 btn btn-success">Gửi thông tin</button>
+                      <button type="submit" class="w-100 btn btn-success">{% trans 'Gửi thông tin' %}</button>
                     </div>
                   </div>
                 </div>
@@ -331,54 +333,53 @@
       {% else %}
       <h3 class="text-center mb-3">{% trans 'Thêm thông tin để chẩn đoán' %}</h3>
       <form method="post" action="{% url 'predict' id=skin_image.id %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="mb-3">
-                  <div class="row">
-                    <div class="col-lg">
-                      <label>{% trans 'Giới tính bệnh nhân' %}</label>
-                      <select class="form-select w-100" name="gender" aria-label="Default select example" required>
-                        <option value="Nam">{% trans 'Nam' %}</option>
-                        <option value="Nữ">{% trans 'Nữ' %}</option>
-                      </select>
-                    </div>
-                    <div class="col-lg">
-                      <label>{% trans 'Độ tuổi bệnh nhân' %}</label>
-                      <input class="form-control w-100" name="age" type="number"  required />
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <div class="row">
-                    <div class="col-lg">
-                      <label>{% trans 'Triệu chứng' %}</label>
-                      <textarea class="form-control w-100" name="symptom" rows="3" placeholder="Mô tả triệu chứng..."
-                        required></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <div class="row">
-                    <div class="col-lg">
-                      <label>{% trans 'Tiền sử bệnh' %}</label>
-                      <textarea class="form-control w-100" name="illness_history" rows="3"
-                        placeholder="Mô tả các bệnh đã từng mắc..." required></textarea>
-                    </div>
-                    <div class="col-lg">
-                      <label>{% trans 'Tiền sử thuốc' %}</label>
-                      <textarea class="form-control w-100" name="drug_history" rows="3"
-                        placeholder="Mô tả các loại thuốc từng dùng gần đây..."
-                        required></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <div class="row">
-                    <div class="col-lg">
-                      <button type="submit" class="w-100 btn btn-success">Gửi thông tin</button>
-                    </div>
-                  </div>
-                </div>
-              </form>
+        {% csrf_token %}
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-lg">
+              <label>{% trans 'Giới tính bệnh nhân' %}</label>
+              <select class="form-select w-100" name="gender" aria-label="Default select example" required>
+                <option value="Nam">{% trans 'Nam' %}</option>
+                <option value="Nữ">{% trans 'Nữ' %}</option>
+              </select>
+            </div>
+            <div class="col-lg">
+              <label>{% trans 'Độ tuổi bệnh nhân' %}</label>
+              <input class="form-control w-100" name="age" type="number" required />
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-lg">
+              <label>{% trans 'Triệu chứng' %}</label>
+              <textarea class="form-control w-100" name="symptom" rows="3"
+                placeholder="{% trans 'Mô tả triệu chứng...' %}" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-lg">
+              <label>{% trans 'Tiền sử bệnh' %}</label>
+              <textarea class="form-control w-100" name="illness_history" rows="3"
+                placeholder="{% trans 'Mô tả các bệnh đã từng mắc...' %}" required></textarea>
+            </div>
+            <div class="col-lg">
+              <label>{% trans 'Tiền sử thuốc' %}</label>
+              <textarea class="form-control w-100" name="drug_history" rows="3"
+                placeholder="{% trans 'Mô tả các loại thuốc từng dùng gần đây...' %}" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-lg">
+              <button type="submit" class="w-100 btn btn-success">{% trans 'Gửi thông tin' %}</button>
+            </div>
+          </div>
+        </div>
+      </form>
       {% endif %}
     </div>
 
