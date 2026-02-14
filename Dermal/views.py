@@ -612,9 +612,10 @@ def predict(request, id):
         image.drug_history_en = translate(drug_history)
         image.illness_history_en = translate(illness_history)
 
-        # Call Gemini to analyze
+        # Call Gemini to analyze with bilingual response
         prompt = f"""
-            Bạn là một chuyên gia hỗ trợ phân tích da liễu. Hãy xử lý dữ liệu của bệnh nhân: {image.gender}, {image.age} tuổi.
+            Bạn là một chuyên gia hỗ trợ phân tích da liễu. 
+            Dữ liệu bệnh nhân: {image.gender}, {image.age} tuổi.
 
             DỮ LIỆU ĐẦU VÀO:
             - Kết quả từ mô hình CNN (JSON): {image.result}
@@ -622,74 +623,55 @@ def predict(request, id):
             - Tiền sử thuốc: {image.drug_history}
             - Bệnh lý nền: {image.illness_history}
 
-            HƯỚNG DẪN TƯ DUY CHO AI:
-            1. Tìm thông tin: Hãy phân tích JSON {image.result} để xác định bệnh có xác suất cao nhất. So chiếu với triệu chứng {image.symptom} xem có khớp với biểu hiện lâm sàng thông thường của bệnh đó không.
-            2. Liên kết dữ liệu: Kiểm tra xem thuốc {image.drug_history} có tác dụng phụ gây phát ban da không, hoặc bệnh lý {image.illness_history} có làm trầm trọng thêm tình trạng da hiện tại không.
-            3. Ưu tiên: Luôn ưu tiên các chẩn đoán phổ biến ở người Châu Á. Sắp xếp các khả năng theo thứ tự từ nhẹ đến cần cảnh giác.
+            YÊU CẦU QUAN TRỌNG: Phân tích tình trạng và trả về kết quả dưới định dạng JSON duy nhất, không có văn bản thừa bên ngoài.
+            Cấu trúc JSON yêu cầu:
+            {{
+                "vi": "Nội dung phân tích chi tiết bằng tiếng Việt...",
+                "en": "Detailed analysis content in English..."
+            }}
 
-            YÊU CẦU TRÌNH BÀY (CHỈ TRẢ VỀ CÁC ĐOẠN VĂN, KHÔNG DÙNG BẢNG, KHÔNG DÙNG CÁC KỸ HIỆU VÀ CÁC CÁCH TRÌNH BÀY ĐẶC BIỆT):
+            HƯỚNG DẪN NỘI DUNG (Áp dụng cho cả 2 ngôn ngữ):
+            1. Đoạn 1 - Nhận diện tình trạng: Giải thích kết quả CNN, cho biết hệ thống nghiêng về khả năng nào nhất.
+            2. Đoạn 2 - Phân tích nguyên nhân: Liên hệ tổn thương da với triệu chứng, tiền sử thuốc và bệnh lý nền.
+            3. Đoạn 3 - Hướng dẫn theo dõi: Các bước kiểm tra lâm sàng đơn giản tại nhà.
+            4. Đoạn 4 - Lời khuyên & Hành động: Khuyên đi khám bác sĩ, nhấn mạnh AI không thay thế chuyên gia.
 
-            Đoạn 1 - Nhận diện tình trạng: 
-            Diễn giải kết quả từ mô hình CNN một cách tự nhiên. Cho người dùng biết hệ thống nghiêng về khả năng nào nhất và mô tả đặc điểm của tình trạng đó để họ đối chiếu.
+            LƯU Ý: Không dùng Markdown phức tạp (#), chỉ dùng văn bản thuần, xuống dòng rõ ràng giữa các đoạn.
+        """
+        raw_reply = call_gemini(prompt, user=request.user)
 
-            Đoạn 2 - Phân tích nguyên nhân & Liên quan: 
-            Giải thích logic mối liên hệ giữa tổn thương da với tiền sử thuốc và bệnh lý nền. Nếu không có liên quan rõ ràng, hãy nêu các yếu tố kích ứng phổ biến khác (thời tiết, thực phẩm).
-
-            Đoạn 3 - Hướng dẫn theo dõi: 
-            Đưa ra các bước kiểm tra tiếp theo (ví dụ: dùng tay ấn xem có nhạt màu không, theo dõi tốc độ lan của vết đỏ, hoặc kiểm tra thân nhiệt).
-
-            Đoạn 4 - Lời khuyên & Hành động: 
-            Đưa ra lời khuyên mang tính khích lệ nhưng cương quyết về việc đến cơ sở y tế gần nhất. Nhấn mạnh rằng AI không thay thế được bác sĩ.
-
-            LƯU Ý QUAN TRỌNG: 
-            - Ngôn ngữ: Dễ hiểu, không dùng từ chuyên môn quá khó.
-            - Định dạng: Chỉ dùng văn bản thuần, không Markdown phức tạp, không tiêu đề lớn (#), chỉ xuống dòng rõ ràng giữa các đoạn.
-            """
-        reply = call_gemini(prompt, user=request.user)
-
-        # Truncate very long replies to a reasonable size (avoid huge payloads)
-        max_len = 16000
-        if isinstance(reply, str) and len(reply) > max_len:
-            reply = reply[:max_len] + "\n\n...[truncated]"
-
-        # Translate explanation to English
-        from .utils import translate_text_gemini
-        explain_en = translate_text_gemini(reply, user=request.user)
-        
-        # Translate user inputs to English
-        #image.symptom_en = translate_text_gemini(symptom, user=request.user)
-        #image.drug_history_en = translate_text_gemini(drug_history, user=request.user)
-        #image.illness_history_en = translate_text_gemini(illness_history, user=request.user)
-
-        # Convert Markdown (if any) to HTML and sanitize it for safe rendering in client
+        # Parse JSON from Gemini response
         try:
-            raw_html = markdown2.markdown(reply) if isinstance(reply, str) else ''
-            
-            # Translate markdown explanation if reply was markdown (simplified: translate raw text first then markdown)
-            # Actually, `explain_en` is raw text. We need to markdownify it too for display if we want HTML.
-            # But the model field `explain_en` is TextField, assuming it stores HTML like `explain`?
-            # Creating HTML for English explanation
-            raw_html_en = markdown2.markdown(explain_en) if isinstance(explain_en, str) else ''
+            # Clean possible markdown code blocks from response
+            json_str = re.sub(r'^```json\s*|\s*```$', '', raw_reply.strip(), flags=re.MULTILINE)
+            content_data = json.loads(json_str)
+            reply_vi = content_data.get('vi', '')
+            reply_en = content_data.get('en', '')
+        except Exception as e:
+            # Fallback if AI fails to return valid JSON
+            print(f"JSON Parsing Error: {e}")
+            reply_vi = raw_reply
+            reply_en = "Translation unavailable (AI response format error)."
 
+        # Convert Markdown/Plaintext to HTML and sanitize
+        try:
+            html_vi = markdown2.markdown(reply_vi) if reply_vi else ''
+            html_en = markdown2.markdown(reply_en) if reply_en else ''
+            
             allowed_tags = [
                 'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'p', 'pre',
                 'strong', 'ul', 'br', 'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
             ]
-            allowed_attrs = {
-                'a': ['href', 'title', 'rel', 'target']
-            }
+            allowed_attrs = {'a': ['href', 'title', 'rel', 'target']}
             
-            # Clean Vietnamese HTML
-            clean_html = bleach.clean(raw_html, tags=allowed_tags, attributes=allowed_attrs, protocols=['http', 'https', 'mailto'])
+            clean_html = bleach.clean(html_vi, tags=allowed_tags, attributes=allowed_attrs, protocols=['http', 'https', 'mailto'])
             clean_html = bleach.linkify(clean_html)
             
-            # Clean English HTML
-            clean_html_en = bleach.clean(raw_html_en, tags=allowed_tags, attributes=allowed_attrs, protocols=['http', 'https', 'mailto'])
+            clean_html_en = bleach.clean(html_en, tags=allowed_tags, attributes=allowed_attrs, protocols=['http', 'https', 'mailto'])
             clean_html_en = bleach.linkify(clean_html_en)
-            
         except Exception:
-            clean_html = ''
-            clean_html_en = ''
+            clean_html = reply_vi
+            clean_html_en = reply_en
 
         image.explain = clean_html
         image.explain_en = clean_html_en
